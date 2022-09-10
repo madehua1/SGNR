@@ -9,44 +9,38 @@ from torch import nn, tensor
 from torch.nn.utils.rnn import pack_padded_sequence
 from DRL_rec.DRL_utils import translist2dict
 
-# print("当前路径 -  %s" %os.getcwd())
-# current_path = os.path.dirname(__file__)
-# print("当前路径 -  %s" %os.getcwd())
+
+
 p = os.path.dirname(os.path.dirname((os.path.abspath('__file__'))))
 if p not in sys.path:
     sys.path.append(p)
 sys.path.append(r'../数据集douban')
 
-
-
 def pickle_save(object, file_path):
     """
     完成对象的封装
-    :param object: 要封装的对象
-    :param file_path: 封装路径
-    :return: None
     """
     f = open(file_path, 'wb')
     pickle.dump(object, f)
 
-
 def pickle_load(file_path):
     """
     对象的读取
-    :param file_path: 文件路径
-    :return: 读取的对象
     """
     f = open(file_path, 'rb')
     return pickle.load(f)
 
 
 def get_data(object_path, social_path):
+    """
+    :param object_path: 交互数据集路径
+    :param social_path: 社交关系数据集路径
+    """
     object = pickle_load(object_path)
     rating_mat = object["rating_mat"]
     user_num = object["user_num"]
     item_num = object["item_num"]
     rela_num = object["rela_num"]
-
     social = np.loadtxt(social_path)
     u_src, u_dst = [], []
     for u in social:

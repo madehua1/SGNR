@@ -80,16 +80,12 @@ def pad_tensors(tensors):
     return tensor_pad
 
 def translist2dict(users_interaction_history,dataset='explicit'):                            #list(batch_size*dict(6,list(l)))
+
     batch_size = len(users_interaction_history)
     empty_flag = True
     interaction_historys = {}
     if dataset == 'explicit':
-        for i in range(0,6):
-            interaction_historys[i] = []
-            for user_interation_history in users_interaction_history:
-                if len(user_interation_history[i]) != 0:
-                    empty_flag = False
-                interaction_historys[i].append(user_interation_history[i])
+        pass
     if dataset == 'implicit':
         for i in range(0,2):
             interaction_historys[i] = []

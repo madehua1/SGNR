@@ -47,17 +47,7 @@ class GCN(nn.Module):
 
 
 class GAT(nn.Module):
-    def __init__(self,
-                 num_layers,
-                 in_dim,
-                 num_hidden,
-                 num_classes,
-                 heads,
-                 activation,
-                 feat_drop,
-                 attn_drop,
-                 negative_slope,
-                 residual):
+    def __init__(self,num_layers,in_dim,num_hidden,num_classes,heads,activation,feat_drop,attn_drop,negative_slope,residual):
         super(GAT, self).__init__()
         #self.g = g
         self.num_layers = num_layers

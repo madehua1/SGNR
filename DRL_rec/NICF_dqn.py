@@ -7,7 +7,7 @@ import torch.nn as nn
 import numpy as np
 import torch as th
 import DRL_rec.DRL_utils
-import utils
+import utils_
 from DRL_rec.DRL_utils import get_users_perference,update_user_preference
 import dgl
 import math
@@ -137,7 +137,7 @@ class DQN(object):
         if self.pre_method == 'ssab':
             preference = DRL_rec.DRL_utils.update_user_preference(interaction_historys,z,item_emb,self.ssab,user_preferences)
         elif self.pre_method == 'rnn':
-            preference = SDRL.utils.update_user_preference(interaction_historys, z, item_emb, self.DIP.rnns, user_preferences)
+            preference = utils_.update_user_preference(interaction_historys, z, item_emb, self.DIP.rnns, user_preferences)
         elif self.pre_method == 'add':
             preference = DRL_rec.DRL_utils.add_update_preference(interaction_historys,z, item_emb, self.add, user_preferences)
         return preference
@@ -146,7 +146,7 @@ class DQN(object):
         if self.pre_method == 'ssab':
             preference = DRL_rec.DRL_utils.get_users_perference(users_interaction_history,item_emb,mask_emb,self.ssab,dataset)
         elif self.pre_method == 'rnn':
-            preference = SDRL.utils.get_users_perference(users_interaction_history,item_emb,mask_emb,self.DIP,dataset)
+            preference = utils_.get_users_perference(users_interaction_history,item_emb,mask_emb,self.DIP,dataset)
         elif self.pre_method == 'add':
             preference = DRL_rec.DRL_utils.add_users_preferences(users_interaction_history,item_emb,mask_emb,self.add,dataset)
         return preference

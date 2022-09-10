@@ -17,7 +17,7 @@ from env import Env
 from DRL_rec.NICF_dqn import DQN
 from qnet import QNet
 import time
-import utils
+import utils_
 import torch as th
 import torch.nn as nn
 from dataset import Userdata
@@ -43,11 +43,11 @@ class Recommender(object):
         self.device = "cuda" if th.cuda.is_available() else "cpu"
 
         # dataset
-        self.item_emb, self.user_emb = utils.get_item_emb_user(args.item_path, args.user_path, args.e_dim)
-        # self.item_emb_, _ = utils.get_item_emb(args.MF_path)
+        self.item_emb, self.user_emb = utils_.get_item_emb_user(args.item_path, args.user_path, args.e_dim)
+        # self.item_emb_, _ = utils_.get_item_emb(args.MF_path)
         # self.item_emb_.weight.data = F.normalize(self.item_emb_.weight.data,p=2,dim=1)
         self.user_num = self.user_emb.weight.shape[0]
-        # self.items_emb, user_num = utils.get_item_emb(args.MF_model_path)
+        # self.items_emb, user_num = utils_.get_item_emb(args.MF_model_path)
         self.e_dim = self.item_emb.weight.shape[1]
         e_dim = self.e_dim
         self.item_num = self.item_emb.weight.shape[0]
@@ -63,7 +63,7 @@ class Recommender(object):
         self.episode_length = args.episode_length
         self.test_rec_round = args.test_rec_round
         self.test_rec_round_list = [5, 10, 20]
-        rating_mat, u_src, u_dst = utils.get_data(args.object_path, args.social_path)
+        rating_mat, u_src, u_dst = utils_.get_data(args.object_path, args.social_path)
         # self.delta = [random.random() for i in range(self.user_num)]
         self.delta = [0.5 for i in range(self.user_num)]
         self.env = Env(episode_length=self.episode_length, alpha=self.alpha, boundary_rating=self.boundary_rating,
@@ -384,7 +384,7 @@ class Recommender(object):
         # test_ave_f1 = np.mean(f1[self.user_train_num:self.user_num])
 
         metric_lists = self.get_metric(logs_list=logs_list,users=users_list,rec_round=self.test_rec_round)
-        # utils.pickle_save(self.storage, self.result_file_path)
+        # utils_.pickle_save(self.storage, self.result_file_path)
 
         print('\ttest  average reward over step: %2.4f, precision@%d: %.4f, recall@%d: %.4f' % (
             test_ave_reward, self.episode_length, test_ave_precision, self.episode_length, test_ave_recall))
